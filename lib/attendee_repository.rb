@@ -8,4 +8,10 @@ class AttendeeRepository
     end
   end
 
+  def repository
+    @repository
+  end
+
+  
+
 end
