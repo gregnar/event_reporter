@@ -1,20 +1,27 @@
-require 'csv'  # => true
-
+require 'csv'
 class CSVParser
 
-  CSV::Converters[:blank_to_nil] = lambda do |field|                                                                                             # => :blank_to_nil
-  field && field.empty? ? nil : field
-  end
+  # CSV::Converters[:blank_to_nil] = lambda do |field|
+  # field && field.empty? ? nil : field
+  # end
 
-  def make_csv                                                                                                                                     # => #<Proc:0x007ff229212910@/Users/herbertjoseph/TuringSchool/event_reporter/lib/csv_parser.rb:5 (lambda)>
-    csv = CSV.new(File.read('../csv/event_attendees.csv'), :headers => true, :header_converters => :symbol, :converters => [:all, :blank_to_nil])  # ~> Errno::ENOENT: No such file or directory @ rb_sysopen - ../csv/event_attendees.csv
-    csv.to_a.map { |row| row.to_hash }
+  def make_csv
+    puts Dir.pwd
+    puts File.exists?('../csv/event_attendees2.csv')
+    file = '../csv/event_attendees.csv'
+    csv = CSV.table(file, :header_converters => :symbol, :converters => :all)
+  require 'pry'
+    binding.pry
+
+    #csv.to_a.map { |row| row.to_hash }
   end
 end
 
-# ~> Errno::ENOENT
-# ~> No such file or directory @ rb_sysopen - ../csv/event_attendees.csv
-# ~>
-# ~> /Users/herbertjoseph/TuringSchool/event_reporter/lib/csv_parser.rb:8:in `read'
-# ~> /Users/herbertjoseph/TuringSchool/event_reporter/lib/csv_parser.rb:8:in `<class:CSVParser>'
-# ~> /Users/herbertjoseph/TuringSchool/event_reporter/lib/csv_parser.rb:3:in `<main>'
+csv = CSVParser.new.make_csv
+
+# ls -s some_object       <-- show method names/instance vars
+# edit -p some_method     <-- open the code in an editor
+# show-source some_method <-- display the source code of the method
+# show-doc some_method    <-- display docs for the method (if they're written)
+# cd some_obj             <-- change self to be some_obj
+# whereami                <-- show me the code I'm in the middle of
