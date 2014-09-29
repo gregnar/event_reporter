@@ -1,22 +1,27 @@
-require 'csv'  # => true
-
+require 'csv'
 class CSVParser
 
-  CSV::Converters[:blank_to_nil] = lambda do |field|  # => :blank_to_nil
-  field && field.empty? ? nil : field
-  end                                                 # => #<Proc:0x007fec8a097f08@/Users/Greg/turing/event_reporter/lib/csv_parser.rb:5 (lambda)>
+  # CSV::Converters[:blank_to_nil] = lambda do |field|
+  # field && field.empty? ? nil : field
+  # end
 
   def make_csv
-    csv = CSV.new(File.read('../csv/event_attendees.csv'), :headers => true, :header_converters => :symbol, :converters => [:all, :blank_to_nil])  # ~> Errno::ENOENT: No such file or directory @ rb_sysopen - ../csv/event_attendees
-    csv.to_a.map { |row| row.to_hash }
+    puts Dir.pwd
+    puts File.exists?('../csv/event_attendees2.csv')
+    file = '../csv/event_attendees.csv'
+    csv = CSV.table(file, :header_converters => :symbol, :converters => :all)
+  require 'pry'
+    binding.pry
+
+    #csv.to_a.map { |row| row.to_hash }
   end
 end
 
-CSVParser.new.make_csv
+csv = CSVParser.new.make_csv
 
-# ~> Errno::ENOENT
-# ~> No such file or directory @ rb_sysopen - ../csv/event_attendees
-# ~>
-# ~> /Users/Greg/turing/event_reporter/lib/csv_parser.rb:10:in `read'
-# ~> /Users/Greg/turing/event_reporter/lib/csv_parser.rb:10:in `make_csv'
-# ~> /Users/Greg/turing/event_reporter/lib/csv_parser.rb:15:in `<main>'
+# ls -s some_object       <-- show method names/instance vars
+# edit -p some_method     <-- open the code in an editor
+# show-source some_method <-- display the source code of the method
+# show-doc some_method    <-- display docs for the method (if they're written)
+# cd some_obj             <-- change self to be some_obj
+# whereami                <-- show me the code I'm in the middle of
