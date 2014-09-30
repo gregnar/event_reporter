@@ -1,19 +1,84 @@
-require 'csv_parser'
+require 'csv_parser'           # ~> LoadError: cannot load such file -- csv_parser
+require 'message_printer'
+require 'queue'
+require 'command_parser'
 require 'attendee_repository'
+require 'pry'
 
 class CLI
-  def initialize
+
+  attr_reader :csv_parser, :queue, :attendee_repo, :printer, :command_reader,
+              :input, :first_command, :second_command, :third_command, :csv_reader
+
+  def initialize(interface, input)
+    @csv_reader = CSVParser.new
+    @queue = Queue.new
+    @attendee_repo = AttendeeRepository.new
+    @printer = MessagePrinter.new(interface)
+    @command_reader = CommandParser.new
+
+    @input = input
+    @first_command = nil
+    @second_command = nil
+    @third_command = nil
   end
 
-  def evaluate(user_input)
-    tokens  = user_input.split
-    command = tokens.first
-    if command == "load"
-      raw_attendees = CSVParser.new.load_csv tokens.last
-      repo = AttendeeRepository.new
-      repo.populate_repository raw_attendees
-    else
-      0
+  def queue(command, attribute=nil)
+    case command
+    when "clear"    then queue.clear
+    when "count"    then queue.count
+    when "print"    then queue.print_queue
+    when "print_by" then queue.print_by(attribute)
+    when "save_to"  then queue.save_to
+    end
+  end
+
+  def help(command)
+    printer.available_commands if command == nil
+    case command
+    when "attributes" then printer.attributes
+    when "find"       then printer.find_instructions
+    when "queue"      then puts "yep"
+    end
+  end
+
+  def load_csv
+    csv = csv_reader.load_csv(second_command)
+    attendee_repo.populate_repository(csv)
+    printer.load_complete
+  end
+
+  def find
+
+    attendee_repo.find(second_command, third_command)
+  end
+
+  def get_command
+    user_input = input.gets.strip
+    command_reader.evaluate(user_input)
+    commands_to_symbols
+  end
+
+  def commands_to_symbols
+    @first_command = command_reader.primary_command.gsub(/\s+/, "_").downcase
+    @second_command = command_reader.secondary_command.gsub(/\s+/, "_").downcase  if command_reader.secondary_command != nil
+    @third_command = command_reader.third_command.gsub(/\s+/, "_").downcase if command_reader.third_command != nil
+  end
+
+  def evaluate
+    get_command
+    case first_command
+    when "queue" then queue(second_command, third_command)
+    when "find"  then find
+    when "load"  then load_csv
+    when "help"  then help(second_command)
     end
   end
 end
+
+# ~> LoadError
+# ~> cannot load such file -- csv_parser
+# ~>
+# ~> /Users/herbertjoseph/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+# ~> /Users/herbertjoseph/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
+# ~> /Users/herbertjoseph/TuringSchool/event_reporter/lib/cli.rb:1:in `<main>'

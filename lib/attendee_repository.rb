@@ -1,4 +1,4 @@
-require_relative 'attendee'
+require 'attendee'
 
 class AttendeeRepository
 
@@ -15,7 +15,5 @@ class AttendeeRepository
   def find(attribute, criteria)
     repository.find_all {|attendee| attendee.attribute.downcase == criteria.downcase}
   end
-
-  
 
 end

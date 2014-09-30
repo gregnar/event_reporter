@@ -6,7 +6,3 @@ class CSVParser
     csv = CSV.table(file_name, :header_converters => :symbol, :converters => :all)
   end
 end
-
-# csv = CSVParser.new.make_csv
-# repo = AttendeeRepository.new.populate_repository(csv)
-# puts repo[1].first_name
