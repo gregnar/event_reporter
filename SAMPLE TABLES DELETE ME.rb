@@ -16,5 +16,3 @@ array.map do |item|
   format = max_lengths.map { |thing| "%#{thing}s" }.join(" " * 5)
   puts format % item
 end
-
-puts "%15s %7s %8s" % ["This code", "is", "indeed"]
