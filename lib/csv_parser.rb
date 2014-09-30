@@ -2,11 +2,8 @@ require 'csv'
 require_relative 'attendee_repository' #temporary dependency to make sure it works
 class CSVParser
 
-  def make_csv
-    puts Dir.pwd
-    puts File.exists?('../csv/event_attendees.csv')
-    file = '../csv/event_attendees.csv'
-    csv = CSV.table(file, :header_converters => :symbol, :converters => :all)
+  def load_csv(file_name)
+    csv = CSV.table(file_name, :header_converters => :symbol, :converters => :all)
   end
 end
 

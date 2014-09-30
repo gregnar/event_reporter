@@ -16,5 +16,6 @@ class AttendeeRepository
     repository.find_all {|attendee| attendee.attribute.downcase == criteria.downcase}
   end
 
+  
 
 end
