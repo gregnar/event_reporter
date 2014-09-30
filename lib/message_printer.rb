@@ -15,6 +15,10 @@ class MessagePrinter
     @stream.puts "Welcome to Event Reporter! For help, use the help command."
   end
 
+  def invalid_file_name(filename)
+    @stream.puts "Invalid filename '#{filename}'. Not found in CSV directory."
+  end
+
   def load_complete
     @stream.puts "Load successful."
   end
@@ -24,7 +28,7 @@ class MessagePrinter
   end
 
   def queue_clear
-    @stream.puts "The queue has been cleared. There are no matches currently stored."
+    @stream.puts "Queue emptied. There are no matches currently stored."
   end
 
   def queue_print(attributes)
