@@ -1,28 +1,29 @@
 class UserCommands
 
-  def load(filename)
+  attr_reader :current_queue
+
+  def initialize
+    @current_queue = []
   end
 
-  def help(command="general") #defaults to general help if no command given
+  def queue(command, third_command="")
+    options = {
+      clear: @current_queue = [],
+      count: current_queue.count,
+      print: ,
+      print_by: ,
+      save_to: save_to
+    }
+    options.fetch(command)
   end
 
-  def queue_clear
-  end
-
-  def queue_print
-  end
-
-  def queue_print_by(attribute)
+  def print
+    printer = MessagePrinter.new
+    message = :queue_print
+    printer.send(message)
   end
 
   def save_to(filename)
-  end
-
-  def find(attribute, criteria)
-  end
-
-  def queue(options = {})
-    options.fetch
   end
 
 end
