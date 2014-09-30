@@ -15,7 +15,5 @@ class CLI
     else
       0
     end
-    require "pry"
-    binding.pry
   end
 end
