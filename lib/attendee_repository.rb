@@ -1,4 +1,4 @@
-require_relative 'attendee'
+require 'attendee'
 
 class AttendeeRepository
 
@@ -15,6 +15,7 @@ class AttendeeRepository
   end
 
   def find(attribute, criteria)
+<<<<<<< HEAD
     result = repository.find_all  do |attendee|
       attendee.attribute.downcase == criteria.downcase
     end
@@ -32,4 +33,11 @@ class AttendeeRepository
         a.phone]
     end
   end
+=======
+    @repository.find_all do |attendee|
+      attendee.send(attribute.to_sym) == criteria
+    end
+  end
+
+>>>>>>> c1c9562102e79d16cc5524ca8e5fd841d733a15e
 end

@@ -2,7 +2,7 @@ require 'pry'
 
 class MessagePrinter
 
-  def initialize(interface=$stdout)
+  def initialize(interface)
     @stream = interface
   end
 

@@ -31,7 +31,7 @@ class MessagePrinterTest < Minitest::Test
 
   def test_queue_has_been_cleared_message
     @message_printer.queue_clear
-    assert @tester.string.include?("queue has been cleared")
+    assert @tester.string.include?("Queue emptied.")
   end
 
   def test_filename_input_prompt_message
