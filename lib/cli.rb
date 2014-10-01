@@ -26,7 +26,7 @@ class CLI
   def call_queue(command, attribute=nil)
     case command
     when "clear"    then queue.clear
-    when "count"    then queue.count
+    when "count"    then puts queue.count
     when "print"    then queue.print_queue
     when "print_by" then queue.print_by(attribute)
     when "save_to"  then queue.save_to
@@ -52,7 +52,6 @@ class CLI
 
   def find
     queue << attendee_repo.find(second_command, third_command)
-    binding.pry
   end
 
   def get_command
@@ -62,7 +61,7 @@ class CLI
   end
 
   def set_commands
-    @first_command = string_format(command_reader.primary_command)
+    @first_command = string_format(command_reader.primary_command) if command_reader.primary_command != nil
     @second_command = string_format(command_reader.secondary_command) if command_reader.secondary_command != nil
     @third_command  = string_format(command_reader.third_command) if command_reader.third_command != nil
   end

@@ -1,47 +1,49 @@
 require_relative 'test_helper'
 require 'cli'
+require "stringio"
 
 class CLITest < Minitest::Test
   def test_happy_path
-    require 'pry'
-    binding.pry
-    cli = CLI.new($stdout, $stdin)
-    # load event_attendees.csv
-    cli.evaluate("load event_attendees.csv")
+    tester = StringIO.new
+    cli = CLI.new($stdout, tester)
 
-    # queue count should return 0
-    assert_equal 0, cli.evaluate("queue count")
+    tester.string = "load event_attendees.csv"
+    cli.evaluate(tester.string)
 
-    # find first_name John
-    johns = cli.evaluate("find first_name John")
+    tester.string = "queue count"
+    assert_equal 0, cli.evaluate(tester.string)
+
+    tester.string = "find first_name John"
+    johns = cli.evaluate(tester.string)
     assert_equal 63, johns.size
 
     johns.each do |output_line|
       assert_includes "john", output_line
     end
 
-    # queue count should return 63
-    assert_equal 63, cli.evaluate("queue count")
+    tester.string = "queue count"
+    assert_equal 63, cli.evaluate(tester.string)
 
-    # queue clear
-    cli.evaluate "queue clear"
+    tester.string = "queue clear"
+    cli.evaluate(tester.string)
 
-    # queue count should return 0
-    assert_equal 0, cli.evaluate("queue count")
+    tester.string = "queue count"
+    assert_equal 0, cli.evaluate(tester.string)
 
-    # help should list the commands
-    command_list = cli.evaluate "help"
+    tester.string = "help"
+    command_list = cli.evaluate(tester.string)
     assert_includes "help",        command_list
     assert_includes "queue count", command_list
     assert_includes "find",        command_list
     assert_includes "load",        command_list
 
-    # help queue count should explain the queue count function
-    command_list = cli.evaluate("help queue count")
+
+    tester.string = "help queue count"
+    command_list = cli.evaluate(tester.string)
     assert_includes "queue count:"
 
-    # help queue print should explain the printing function
-    command_list = cli.evaluate("help queue print")
+    tester.string = "help queue print"
+    command_list = cli.evaluate(tester.string)
     assert_includes "queue print:"
   end
 end
