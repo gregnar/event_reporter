@@ -17,3 +17,9 @@ class CLI
 #     end
 #   end
 # end
+
+
+def queue_print_by
+end
+
+end
