@@ -17,6 +17,7 @@ class CLI
     @printer = MessagePrinter.new(interface)
     @command_reader = CommandParser.new
 
+    @running = true
     @input = input
     @first_command  = nil
     @second_command = nil
@@ -24,10 +25,14 @@ class CLI
     @printer.welcome
   end
 
+  def running?
+    @running
+  end
+
   def call_queue(command, attribute=nil)
     case command
     when "clear"    then queue.clear
-    when "count"    then puts queue.count
+    when "count"    then printer.show_count(queue.count)
     when "print"    then queue.print_queue
     when "print_by" then queue.print_by(attribute)
     when "save_to"  then queue.save_to
@@ -73,18 +78,25 @@ class CLI
 
   def quit
     printer.goodbye
+    @running = false
+  end
+
+  def execute_first_commands(command)
+    case command
+    when "queue"        then call_queue(second_command, third_command)
+    when "find"         then find
+    when "load"         then load_csv
+    when "help"         then help(second_command)
+    else                     printer.invalid_command
+    end
   end
 
   def evaluate
-    printer.waiting_for_command
-    get_command
-    case first_command
-    when "queue"            then call_queue(second_command, third_command)
-    when "find"             then find
-    when "load"             then load_csv
-    when "help"             then help(second_command)
-    when %(q Q quit Quit QUIT).include?(first_command) then quit
-    else                         printer.invalid_command
+    while running?
+      printer.waiting_for_command
+      get_command
+      quit and return if %w(q Q quit Quit QUIT).include?(first_command)
+      execute_first_commands(first_command)
     end
   end
 end

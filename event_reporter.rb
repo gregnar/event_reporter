@@ -3,6 +3,6 @@ require 'cli'
 
 cli = CLI.new($stdout,$stdin)
 
-loop do
+while cli.running?
   cli.evaluate
 end

@@ -23,6 +23,10 @@ ____________________________________________________________oooo________________
     @stream.puts "Welcome to Event Reporter! For help, use the help command."
   end
 
+  def show_count(count)
+    "There are #{count} records currently in queue."
+  end
+
   def waiting_for_command
     @stream.puts "Waiting for command..."
   end
