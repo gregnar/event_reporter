@@ -6,28 +6,6 @@ require 'attendee_repository'
 require 'pry'
 
 class CLI
-<<<<<<< HEAD
-  def initialize
-  end
-
-#   def evaluate(user_input)
-#     tokens  = user_input.split
-#     command = tokens.first
-#     if command == "load"
-#       raw_attendees = CSVParser.new.load_csv tokens.last
-#       repo = AttendeeRepository.new
-#       repo.populate_repository raw_attendees
-#     else
-#       0
-#     end
-#   end
-# end
-
-
-def queue_print_by
-end
-
-=======
 
   attr_reader :csv_parser, :queue, :attendee_repo, :printer, :command_reader,
               :input, :first_command, :second_command, :third_command, :csv_reader
@@ -45,7 +23,7 @@ end
     @third_command = nil
   end
 
-  def queue(command, attribute=nil)
+  def call_queue(command, attribute=nil)
     case command
     when "clear"    then queue.clear
     when "count"    then queue.count
@@ -73,34 +51,33 @@ end
   end
 
   def find
-    attendee_repo.find(second_command, third_command)
+    queue << attendee_repo.find(second_command, third_command)
+    binding.pry
   end
 
   def get_command
     user_input = input.gets.strip
     command_reader.evaluate(user_input)
-    commands_to_symbols
+    set_commands
   end
 
-  def commands_to_symbols
-    @first_command = command_reader.primary_command.gsub(/\s+/, "_").downcase
-    case
-    when  command_reader.secondary_command != nil
-      @second_command = command_reader.secondary_command.gsub(/\s+/,"_").downcase
-    when  command_reader.third_command != nil
-      @third_command  = command_reader.third_command.gsub(/\s+/, "_").downcase
-    end
-    binding.pry
+  def set_commands
+    @first_command = string_format(command_reader.primary_command)
+    @second_command = string_format(command_reader.secondary_command) if command_reader.secondary_command != nil
+    @third_command  = string_format(command_reader.third_command) if command_reader.third_command != nil
+  end
+
+  def string_format(string)
+    string.gsub(/\s+/, "_").downcase
   end
 
   def evaluate
     get_command
     case first_command
-    when "queue" then queue(second_command, third_command)
+    when "queue" then call_queue(second_command, third_command)
     when "find"  then find
     when "load"  then load_csv
     when "help"  then help(second_command)
     end
   end
->>>>>>> c1c9562102e79d16cc5524ca8e5fd841d733a15e
 end

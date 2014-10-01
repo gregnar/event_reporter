@@ -3,7 +3,6 @@ require 'attendee'
 class AttendeeRepository
 
   def populate_repository(csv_array)
-    require
     @csv_array = csv_array
     @repository = csv_array.map do |hash|
       Attendee.new(hash)
@@ -15,11 +14,13 @@ class AttendeeRepository
   end
 
   def find(attribute, criteria)
-<<<<<<< HEAD
-    result = repository.find_all  do |attendee|
-      attendee.attribute.downcase == criteria.downcase
+    result = @repository.find_all do |attendee|
+      attendee.send(attribute.to_sym).to_s.downcase == criteria
     end
     prepare_for_printing(result)
+    require 'pry'
+    binding.pry
+    result
   end
 
   def prepare_for_printing(attendee_list)
@@ -33,11 +34,5 @@ class AttendeeRepository
         a.phone]
     end
   end
-=======
-    @repository.find_all do |attendee|
-      attendee.send(attribute.to_sym) == criteria
-    end
-  end
 
->>>>>>> c1c9562102e79d16cc5524ca8e5fd841d733a15e
 end

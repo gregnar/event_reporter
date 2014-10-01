@@ -12,8 +12,8 @@ class Queue
     current_queue = []
   end
 
-  def push(attendee_array)
-    current_queue << attendee_array
+  def << (attendee_array)
+    current_queue.push(attendee_array)
   end
 
   def count
@@ -22,14 +22,11 @@ class Queue
 
   def order(attribute)
     ordered_queue = current_queue.sort_by { |item| item.attribute }
-<<<<<<< HEAD
-=======
     print_queue(ordered_queue)
   end
 
-  def print_queue(queue_to_print=current_queue)
-
->>>>>>> c1c9562102e79d16cc5524ca8e5fd841d733a15e
+  def print_queue(attribute=current_queue)
+    puts current_queue
   end
 
   def save_to
