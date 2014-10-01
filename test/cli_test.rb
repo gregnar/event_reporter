@@ -3,8 +3,9 @@ require 'cli'
 
 class CLITest < Minitest::Test
   def test_happy_path
-    cli = CLI.new
-
+    require 'pry'
+    binding.pry
+    cli = CLI.new($stdout, $stdin)
     # load event_attendees.csv
     cli.evaluate("load event_attendees.csv")
 
