@@ -62,12 +62,7 @@ class CLI
   end
 
   def set_commands
-<<<<<<< HEAD
     @first_command  = command_reader.primary_command
-=======
-
-    @first_command = command_reader.primary_command
->>>>>>> 594d8c7bed96f5df679c6ebacf6c5bef99704709
     @second_command = string_format(command_reader.secondary_command) if command_reader.secondary_command != nil
     @third_command  = command_reader.third_command if command_reader.third_command != nil
   end
