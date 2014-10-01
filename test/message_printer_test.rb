@@ -1,5 +1,5 @@
 require_relative 'test_helper'
-require_relative '../lib/message_printer'
+require 'message_printer'
 require 'stringio'
 
 class MessagePrinterTest < Minitest::Test

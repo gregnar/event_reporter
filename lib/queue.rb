@@ -33,7 +33,11 @@ class Queue
     puts current_queue
   end
 
-  def save_to(array_of_hashes)
+  def save_to(filename)
+    CSV.open("/csv/#{filename}.csv", "w") do |csv|
+      current_queue.each{ }
+      csv << ["row", "of", "CSV", "data"]
+    end
     values_to_save = current_queue.map do |hash|
       select_values_to_save(hash)
     end
