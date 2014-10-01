@@ -33,7 +33,7 @@ class CommandParser
   end
 
   def account_for_by(commands, testing=false)
-    if commands[2] == "by"
+    if commands[2] == "by" || commands[2] == "to"
       commands[1] = commands[1..2].inject { |sum, command|  sum += " #{command}" }
       commands.delete_at(2)
     end

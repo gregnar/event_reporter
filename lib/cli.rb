@@ -35,7 +35,9 @@ class CLI
     when "count"    then printer.show_count(queue.count)
     when "print"    then queue.print_queue
     when "print_by" then queue.print_by(attribute)
-    when "save_to"  then queue.save_to
+    when "save_to"
+      queue.save_to(third_command)
+      File.exists?("csv/#{third_command}.csv") ? printer.save_successful : printer.save_error
     end
   end
 
@@ -57,9 +59,9 @@ class CLI
   end
 
   def find
-    queue << attendee_repo.find(second_command, third_command)
-    require 'pry'
-    binding.pry
+    matches = attendee_repo.find(second_command, third_command)
+    queue << matches
+    printer.matches_found(matches.count)
   end
 
   def get_command

@@ -23,7 +23,7 @@ class TableMaker
     end
   end
 
-  def turn_attendees_to_attr_array(attendee_list)
+  def attendees_to_attr_array(attendee_list)
     array_for_table = []
     attendee_list.map do |attendee|
       array_for_table << attribute_array.map do |attribute|
@@ -38,7 +38,7 @@ class TableMaker
   end
 
   def print_table(array)
-    converted_attendees = turn_attendees_to_attr_array(array)
+    converted_attendees = attendees_to_attr_array(array)
     max_lengths = determine_max_lengths(converted_attendees)
     require 'pry'
     binding.pry

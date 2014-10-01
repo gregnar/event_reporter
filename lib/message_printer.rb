@@ -23,8 +23,16 @@ ____________________________________________________________oooo________________
     @stream.puts "Welcome to Event Reporter! For help, use the help command."
   end
 
+  def save_successful
+    @stream.puts "Save successful!"
+  end
+
+  def save_error
+    @stream.puts "Error! Something went wrong with the saving process!"
+  end
+
   def show_count(count)
-    "There are #{count} records currently in queue."
+    @stream.puts "There are #{count} records currently in queue."
   end
 
   def waiting_for_command
@@ -37,10 +45,6 @@ ____________________________________________________________oooo________________
 
   def load_complete
     @stream.puts "Load successful."
-  end
-
-  def queue_count(attendees)
-    @stream.puts "#{attendees.count} matches currently in the queue."
   end
 
   def queue_clear
@@ -56,7 +60,7 @@ ____________________________________________________________oooo________________
   end
 
   def matches_found(matches)
-    @stream.puts "#{matches.count} matches found!"
+    @stream.puts "#{matches} matches found!"
   end
 
   def goodbye

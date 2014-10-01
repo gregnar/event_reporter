@@ -1,9 +1,11 @@
 require 'csv'
+require 'table_maker'
 
 class Queue
 
   def initialize
     @current_queue = []
+    @table_maker = TableMaker.new
   end
 
   def current_queue
@@ -33,19 +35,20 @@ class Queue
     puts current_queue
   end
 
+  def prep_for_save
+    header = [:last_name, :first_name, :email_address,
+              :zipcode, :city, :state, :address,:phone]
+    queue_csv = @table_maker.attendees_to_attr_array(current_queue)
+    queue_csv.unshift(header)
+    return queue_csv
+  end
+
   def save_to(filename)
-    CSV.open("/csv/#{filename}.csv", "w") do |csv|
-      current_queue.each{ }
-      csv << ["row", "of", "CSV", "data"]
-    end
-    values_to_save = current_queue.map do |hash|
-      select_values_to_save(hash)
+    filename = File.join "csv", filename
+    CSV.open("#{filename}.csv", "wb") do |csv|
+      prep_for_save.each{ |row| csv << row }
     end
   end
 
-  def select_values_to_save(hash)
-    hash.values.select do
-    end
-  end
 
 end
