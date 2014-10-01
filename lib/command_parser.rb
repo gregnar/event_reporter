@@ -21,7 +21,7 @@ class CommandParser
   def evaluate(command)
     commands = command.split
     @primary_command = commands.first
-    @secondary_command = commands[1]
+    @secondary_command = commands[1] if commands[1] != nil
     @third_command = commands[2] if commands[2] != nil
   end
 

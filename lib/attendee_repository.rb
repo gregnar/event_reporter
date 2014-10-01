@@ -13,7 +13,9 @@ class AttendeeRepository
   end
 
   def find(attribute, criteria)
-    repository.find_all {|attendee| attendee.attribute.downcase == criteria.downcase}
+    @repository.find_all do |attendee|
+      attendee.send(attribute.to_sym) == criteria
+    end
   end
 
 end

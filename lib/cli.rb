@@ -39,17 +39,18 @@ class CLI
     when "attributes" then printer.attributes
     when "find"       then printer.find_instructions
     when "queue"      then puts "yep"
+    else                   printer.available_commands
     end
   end
 
   def load_csv
+    second_command = "event_attendees.csv" if second_command == nil
     csv = csv_reader.load_csv(second_command)
     attendee_repo.populate_repository(csv)
     printer.load_complete
   end
 
   def find
-
     attendee_repo.find(second_command, third_command)
   end
 
@@ -61,8 +62,13 @@ class CLI
 
   def commands_to_symbols
     @first_command = command_reader.primary_command.gsub(/\s+/, "_").downcase
-    @second_command = command_reader.secondary_command.gsub(/\s+/, "_").downcase  if command_reader.secondary_command != nil
-    @third_command = command_reader.third_command.gsub(/\s+/, "_").downcase if command_reader.third_command != nil
+    case
+    when  command_reader.secondary_command != nil
+      @second_command = command_reader.secondary_command.gsub(/\s+/,"_").downcase
+    when  command_reader.third_command != nil
+      @third_command  = command_reader.third_command.gsub(/\s+/, "_").downcase
+    end
+    binding.pry
   end
 
   def evaluate
@@ -75,10 +81,3 @@ class CLI
     end
   end
 end
-
-# ~> LoadError
-# ~> cannot load such file -- csv_parser
-# ~>
-# ~> /Users/herbertjoseph/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
-# ~> /Users/herbertjoseph/.rvm/rubies/ruby-2.1.2/lib/ruby/2.1.0/rubygems/core_ext/kernel_require.rb:55:in `require'
-# ~> /Users/herbertjoseph/TuringSchool/event_reporter/lib/cli.rb:1:in `<main>'
