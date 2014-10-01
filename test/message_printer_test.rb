@@ -11,79 +11,79 @@ class MessagePrinterTest < Minitest::Test
 
   def test_clear_console_sequence
     @message_printer.clear_console
-    assert @tester.string.include?("2J")
+    assert_includes "2J", @tester.string
   end
 
   def test_welcome_message
     @message_printer.welcome
-    assert @tester.string.include?("Event Reporter!")
+    assert_includes "Event Reporter!", @tester.string
   end
 
   def test_loading_complete_message
     @message_printer.load_complete
-    assert @tester.string.include?("Load successful.")
+    assert_includes "Load successful.", @tester.string
   end
 
   def test_number_of_attendees_in_queue_currently_message_works
     @message_printer.queue_count(Array.new(22))
-    assert @tester.string.include?("22 matches")
+    assert_includes "22 matches", @tester.string
   end
 
   def test_queue_has_been_cleared_message
     @message_printer.queue_clear
-    assert @tester.string.include?("Queue emptied.")
+    assert_includes "Queue emptied.", @tester.string
   end
 
   def test_filename_input_prompt_message
     @message_printer.ask_filename
-    assert @tester.string.include?("file's name to be")
+    assert_includes "file's name to be", @tester.string
   end
 
   def test_queue_has_successfully_saved_message
     @message_printer.queue_saved_to("booty")
-    assert @tester.string.include?("Saved as 'booty.csv'")
+    assert_includes "Saved as 'booty.csv'", @tester.string
   end
 
-  def test_number_of_matches_found
+  def test_correct_number_of_matches_found
     @message_printer.matches_found([1,2,3,4,5,6,7,8,9,10])
-    assert @tester.string.include?("10 matches")
+    assert_includes "10 matches", @tester.string
   end
 
   def test_invalid_command_message
     @message_printer.invalid_command("gibberjabber")
-    assert @tester.string.include?("Invalid command: gibberjabber")
+    assert_includes "Invalid command: gibberjabber", @tester.string
   end
 
   def test_available_commands_message
     @message_printer.available_commands
-    assert @tester.string.include?("help <command>")
+    assert_includes "help <command>", @tester.string
   end
 
   def test_instructions_for_queue_command_message
     @message_printer.queue_instructions
-    assert @tester.string.include?("queue holds the stored results")
+    assert_includes "queue holds the stored results", @tester.string
   end
 
   def test_instructions_for_find_command_message
     @message_printer.find_instructions
-    assert @tester.string.include?("Here's how the find command works:")
+    assert_includes "Here's how the find command works:", @tester.string
   end
 
   def test_all_queue_command_help_messages
     @message_printer.queue_command_help(:clear)
-    assert @tester.string.include?("Queue clear removes anything")
+    assert_includes "Queue clear removes anything", @tester.string
 
     @message_printer.queue_command_help(:count)
-    assert @tester.string.include?("how many records")
+    assert_includes "how many records", @tester.string.include?()
 
     @message_printer.queue_command_help(:print)
-    assert @tester.string.include?("tab-delimited data table")
+    assert_includes "tab-delimited data table", @tester.string
 
     @message_printer.queue_command_help(:print_by)
-    assert @tester.string.include?("by the specified attribute")
+    assert_includes "by the specified attribute", @tester.string
 
     @message_printer.queue_command_help(:save_to)
-    assert @tester.string.include?("Exports the current queue")
+    assert_includes "Exports the current queue", @tester.string
   end
 
   def test_attributes_help_command
@@ -91,4 +91,8 @@ class MessagePrinterTest < Minitest::Test
     assert @tester.string.include?("4. zip_code")
   end
 
+  def test_waiting_for_command
+    @message_printer.waiting_for_command
+    assert_includes "Waiting for command", @tester.string
+  end
 end

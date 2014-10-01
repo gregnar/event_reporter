@@ -19,12 +19,20 @@ class CommandParser
   end
 
   def evaluate(command)
-    commands = command.split
-    @primary_command = commands.first
+    commands = modify_commands(command)
+    @primary_command = commands.first if commands[0] != nil
     @secondary_command = commands[1] if commands[1] != nil
     @third_command = commands[2] if commands[2] != nil
   end
 
-  def account_for_by
+  def modify_commands(command)
+    commands = command.split
+    if commands.length > 3
+      extra_commands = commands.pop(commands.length-3)
+      extra_commands.each { |command| commands[2] += " #{command}" }
+      extra_commands = 0
+    end
+    commands.
+    commands
   end
 end

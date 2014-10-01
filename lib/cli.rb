@@ -21,6 +21,7 @@ class CLI
     @first_command = nil
     @second_command = nil
     @third_command = nil
+    @printer.welcome
   end
 
   def call_queue(command, attribute=nil)
@@ -62,9 +63,9 @@ class CLI
   end
 
   def set_commands
-    @first_command = string_format(command_reader.primary_command)
+    @first_command = command_reader.primary_command
     @second_command = string_format(command_reader.secondary_command) if command_reader.secondary_command != nil
-    @third_command  = string_format(command_reader.third_command) if command_reader.third_command != nil
+    @third_command  = command_reader.third_command if command_reader.third_command != nil
   end
 
   def string_format(string)
@@ -72,12 +73,14 @@ class CLI
   end
 
   def evaluate
+    printer.waiting_for_command
     get_command
     case first_command
     when "queue" then call_queue(second_command, third_command)
     when "find"  then find
     when "load"  then load_csv
     when "help"  then help(second_command)
+    else              printer.invalid_commmand
     end
   end
 end
