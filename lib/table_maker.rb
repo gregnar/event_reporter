@@ -1,10 +1,6 @@
 
 class TableMaker
 
-  def initialize(stdout = $stdout)
-    @stdout = stdout
-  end
-
   def determine_max_lengths(mega_array)
     @max_lengths = [0, 0, 0, 0, 0, 0, 0]
     mega_array.map do |array|

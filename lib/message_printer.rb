@@ -51,6 +51,10 @@ ____________________________________________________________oooo________________
     @stream.puts "Queue emptied. There are no matches currently stored."
   end
 
+  def print_queue(data)
+    data.each_entry { |entry| @stream.puts entry }
+  end
+
   def ask_filename
     @stream.puts "What do you wish the file's name to be saved as?"
   end

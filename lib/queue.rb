@@ -50,5 +50,4 @@ class Queue
     end
   end
 
-
 end

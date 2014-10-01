@@ -4,6 +4,7 @@ require 'queue'
 require 'command_parser'
 require 'attendee_repository'
 require 'pry'
+require 'table_maker'
 
 class CLI
 
@@ -16,6 +17,7 @@ class CLI
     @attendee_repo = AttendeeRepository.new
     @printer = MessagePrinter.new(interface)
     @command_reader = CommandParser.new
+    @table_maker = TableMaker.new
 
     @running = true
     @input = input
@@ -29,11 +31,15 @@ class CLI
     @running
   end
 
+  def prepped_table
+    @table_maker.prepare_table(queue.current_queue)
+  end
+
   def call_queue(command, attribute=nil)
     case command
     when "clear"    then queue.clear
     when "count"    then printer.show_count(queue.count)
-    when "print"    then queue.print_queue
+    when "print"    then printer.print_queue(prepped_table)
     when "print_by" then queue.print_by(attribute)
     when "save_to"
       queue.save_to(third_command)
