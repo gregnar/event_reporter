@@ -16,6 +16,5 @@ class TableMakerTest < Minitest::Test
     attendee_repo.populate_repository(csv)
     data = attendee_repo.find(:first_name, "John")
     assert_includes "John", maker.print_table(data)
-
   end
 end

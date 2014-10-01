@@ -1,3 +1,4 @@
+
 class TableMaker
 
   def initialize(stdout = $stdout)
@@ -5,8 +6,8 @@ class TableMaker
   end
 
   def determine_max_lengths(mega_array)
+    @max_lengths = [0, 0, 0, 0, 0, 0, 0]
     mega_array.map do |array|
-      @max_lengths = array.map { |item| item.to_s.length }
       array.each_with_index do |thing, index|
         size = thing.size
         @max_lengths[index] = size if size > @max_lengths[index]
@@ -18,7 +19,7 @@ class TableMaker
   def make_table(array, max_lengths)
     array.map do |item|
         formatter = max_lengths.map { |thing| "%#{thing}s" }.join(" " * 5)
-        formatter % item
+        formatter.rjust(20) % item
     end
   end
 
@@ -39,6 +40,8 @@ class TableMaker
   def print_table(array)
     converted_attendees = turn_attendees_to_attr_array(array)
     max_lengths = determine_max_lengths(converted_attendees)
+    require 'pry'
+    binding.pry
     @stdout.puts make_table(converted_attendees, max_lengths)
   end
 end
