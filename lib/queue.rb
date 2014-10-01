@@ -1,3 +1,5 @@
+require 'csv'
+
 class Queue
 
   def initialize
@@ -13,7 +15,9 @@ class Queue
   end
 
   def << (attendee_array)
-    current_queue.push(attendee_array)
+    attendee_array.map do |attendee|
+      current_queue.push(attendee)
+    end
   end
 
   def count
@@ -29,8 +33,15 @@ class Queue
     puts current_queue
   end
 
-  def save_to
+  def save_to(array_of_hashes)
+    values_to_save = current_queue.map do |hash|
+      select_values_to_save(hash)
+    end
+  end
 
+  def select_values_to_save(hash)
+    hash.values.select do
+    end
   end
 
 end
