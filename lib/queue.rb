@@ -38,7 +38,7 @@ class Queue
   def prep_for_save
     header = [:last_name, :first_name, :email_address,
               :zipcode, :city, :state, :address,:phone]
-    queue_csv = @table_maker.attendees_to_attr_array(current_queue)
+    queue_csv = @table_maker.turn_attendees_to_attr_array(current_queue)
     queue_csv.unshift(header)
     return queue_csv
   end
