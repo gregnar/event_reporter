@@ -55,13 +55,17 @@ ____________________________________________________________oooo________________
     @stream.puts "#{matches.count} matches found!"
   end
 
+  def goodbye
+    @stream.puts "Thanks for using Event Reporter! Goodbye!"
+  end
+
   #invalid/incorrect prompts
   def no_matches(criteria, attribute)
     @stream.puts "No matches found for #{criteria} in #{attribute} attribute."
   end
 
-  def invalid_command(command)
-    @stream.puts "Invalid command: #{command}. Use help command for available commands and instructions"
+  def invalid_command
+    @stream.puts "Invalid command. Use help command for available commands and instructions"
   end
 
   #help commands

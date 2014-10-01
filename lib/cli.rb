@@ -18,9 +18,9 @@ class CLI
     @command_reader = CommandParser.new
 
     @input = input
-    @first_command = nil
+    @first_command  = nil
     @second_command = nil
-    @third_command = nil
+    @third_command  = nil
     @printer.welcome
   end
 
@@ -53,7 +53,6 @@ class CLI
 
   def find
     queue << attendee_repo.find(second_command, third_command)
-    binding.pry
   end
 
   def get_command
@@ -63,7 +62,7 @@ class CLI
   end
 
   def set_commands
-    @first_command = command_reader.primary_command
+    @first_command  = command_reader.primary_command
     @second_command = string_format(command_reader.secondary_command) if command_reader.secondary_command != nil
     @third_command  = command_reader.third_command if command_reader.third_command != nil
   end
@@ -72,15 +71,20 @@ class CLI
     string.gsub(/\s+/, "_").downcase
   end
 
+  def quit
+    printer.goodbye
+  end
+
   def evaluate
     printer.waiting_for_command
     get_command
     case first_command
-    when "queue" then call_queue(second_command, third_command)
-    when "find"  then find
-    when "load"  then load_csv
-    when "help"  then help(second_command)
-    else              printer.invalid_commmand
+    when "queue"            then call_queue(second_command, third_command)
+    when "find"             then find
+    when "load"             then load_csv
+    when "help"             then help(second_command)
+    when %(q Q quit Quit QUIT).include?(first_command) then quit
+    else                         printer.invalid_command
     end
   end
 end

@@ -13,8 +13,8 @@ class AttendeeRepository
     @repository
   end
 
-  def find(attribute, criteria)
-    result = @repository.find_all do |attendee|
+  def find(attribute, criteria, repo=@repository)
+    result = repo.find_all do |attendee|
       attendee.send(attribute.to_sym).to_s.downcase == criteria
     end
     prepare_for_printing(result)
