@@ -37,11 +37,9 @@ class TableMaker
     [:last_name, :first_name, :email, :zip_code, :state, :address, :phone]
   end
 
-  def print_table(array)
+  def prepare_table(array)
     converted_attendees = turn_attendees_to_attr_array(array)
     max_lengths = determine_max_lengths(converted_attendees)
-    require 'pry'
-    binding.pry
-    @stdout.puts make_table(converted_attendees, max_lengths)
+    make_table(converted_attendees, max_lengths)
   end
 end
