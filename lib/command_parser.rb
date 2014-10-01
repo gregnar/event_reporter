@@ -27,12 +27,23 @@ class CommandParser
 
   def modify_commands(command)
     commands = command.split
-    if commands.length > 3
-      extra_commands = commands.pop(commands.length-3)
-      extra_commands.each { |command| commands[2] += " #{command}" }
-      extra_commands = 0
+    account_for_by(commands)
+    account_for_long_attributes(commands)
+    return commands
+  end
+
+  def account_for_by(commands)
+    if commands[2] == "by"
+      commands[1] = commands[1..2].inject { |sum, command|  sum += " #{command}" }
+      commands.delete_at(2)
     end
-    commands.
-    commands
+  end
+
+  def account_for_long_attributes(commands)
+    address = commands.index("address")
+    if commands.length > 3
+      commands[address+1] = commands[address+1..commands.length-1].inject { |sum, command| sum += " #{command}" }
+      commands.pop(commands.length-4)
+    end
   end
 end
