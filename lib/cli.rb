@@ -53,6 +53,8 @@ class CLI
 
   def find
     queue << attendee_repo.find(second_command, third_command)
+    require 'pry'
+    binding.pry
   end
 
   def get_command
