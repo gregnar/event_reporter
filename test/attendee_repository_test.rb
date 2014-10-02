@@ -39,8 +39,8 @@ class AttendeeRepositoryTest < Minitest::Test
     onndys = @attendee_repo.find("email", "onndy@jumpstartlab.com")
     assert_includes onndys.first.email, "jumpstartlab"
 
-    fl_zipcodes = @attendee_repo.find("zip_code", "33559")
-    assert_equal 33559, fl_zipcodes.first.zip_code
+    fl_zipcodes = @attendee_repo.find("zipcode", "33559")
+    assert_equal 33559, fl_zipcodes.first.zipcode
 
     raptors = @attendee_repo.find("city", "Toronto")
     assert_equal "Toronto", raptors.first.city

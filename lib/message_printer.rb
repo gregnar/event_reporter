@@ -124,7 +124,7 @@ ____________________________________________________________oooo________________
       clear: @stream.puts("Queue clear removes anything currently in the queue."),
       count: @stream.puts("Output how many records are in the current queue."),
       print: @stream.puts("Print out a tab-delimited data table with a header row following
-              this format: LAST_NAME  FIRST_NAME  EMAIL  ZIP_CODE  CITY  STATE
+              this format: LAST_NAME  FIRST_NAME  EMAIL  zipcode  CITY  STATE
               ADDRESS PHONE"),
       print_by: @stream.puts("Prints the data table sorted by the specified attribute like zip code."),
       save_to: @stream.puts("Exports the current queue to the specified filename as a CSV.
@@ -140,7 +140,7 @@ ____________________________________________________________oooo________________
         1. last_name
         2. first_name
         3. email
-        4. zip_code
+        4. zipcode
         5. city
         6. state
         7. address

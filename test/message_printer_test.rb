@@ -88,7 +88,7 @@ class MessagePrinterTest < Minitest::Test
 
   def test_attributes_help_command
     @message_printer.attributes
-    assert @tester.string.include?("4. zip_code")
+    assert @tester.string.include?("4. zipcode")
   end
 
   def test_waiting_for_command
