@@ -26,13 +26,8 @@ class Queue
     current_queue.count
   end
 
-  def order(attribute)
+  def ordered(attribute)
     ordered_queue = current_queue.sort_by { |item| item.attribute }
-    print_queue(ordered_queue)
-  end
-
-  def print_queue(attribute=current_queue)
-    puts current_queue
   end
 
   def prep_for_save
