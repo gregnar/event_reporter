@@ -93,8 +93,8 @@ class CLI
         queue.clear
         matches = attendee_repo.find(second_command, third_command)
       elsif queue_find
-        queue.clear
         matches = queue.find(third_command)
+        queue.clear
       end
       queue << matches
       printer.matches_found(matches.count)
