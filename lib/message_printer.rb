@@ -80,6 +80,10 @@ ____________________________________________________________oooo________________
     @stream.puts "Invalid command. Use help command for available commands and instructions"
   end
 
+  def not_loaded
+    @stream.puts "No file loaded! Try loading first."
+  end
+
   #help commands
   def available_commands
     @stream.puts "Here are the available commands.

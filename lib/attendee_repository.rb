@@ -2,6 +2,10 @@ require 'attendee'
 
 class AttendeeRepository
 
+  def initiailize
+    @repository = []
+  end
+
   def populate_repository(csv_array)
     @csv_array = csv_array
     @repository = csv_array.map do |hash|

@@ -1,4 +1,4 @@
-require 'csv_parser'           # ~> LoadError: cannot load such file -- csv_parser
+require 'csv_parser'
 require 'message_printer'
 require 'queue'
 require 'command_parser'
@@ -19,6 +19,7 @@ class CLI
     @command_reader = CommandParser.new
     @table_maker = TableMaker.new
 
+    @loaded = false
     @running = true
     @input = input
     @first_command  = nil
@@ -44,7 +45,7 @@ class CLI
     when "print_by" then printer.print_queue(prepped_table(true, third_command))
     when "save_to"
       queue.save_to(third_command)
-      File.exists?("csv/#{third_command}.csv") ? printer.save_successful : printer.save_error
+      File.exists?("csv/#{third_command}") ? printer.save_successful : printer.save_error
     end
   end
 
@@ -59,17 +60,26 @@ class CLI
   end
 
   def load_csv
-    second_command = "event_attendees.csv" if second_command == nil
+    second_command ||= "event_attendees.csv"
     csv = csv_reader.load_csv(second_command)
     attendee_repo.populate_repository(csv)
     printer.load_complete
+    @loaded = true
+  end
+
+  def loaded?
+    @loaded
   end
 
   def find
-    queue.clear
-    matches = attendee_repo.find(second_command, third_command)
-    queue << matches
-    printer.matches_found(matches.count)
+    if loaded?
+      queue.clear
+      matches = attendee_repo.find(second_command, third_command)
+      queue << matches
+      printer.matches_found(matches.count)
+    else
+      printer.not_loaded
+    end
   end
 
   def get_command

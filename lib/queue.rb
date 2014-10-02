@@ -40,7 +40,7 @@ class Queue
 
   def save_to(filename)
     filename = File.join "csv", filename
-    CSV.open("#{filename}.csv", "wb") do |csv|
+    CSV.open("#{filename}", "wb") do |csv|
       prep_for_save.each{ |row| csv << row }
     end
   end
