@@ -4,7 +4,7 @@ class Attendee
     @last_name = hash[:last_name]
     @first_name = hash[:first_name]
     @email = hash[:email_address]
-    @zip_code = hash[:zipcode]
+    @zipcode = hash[:zipcode]
     @city = hash[:city]
     @state = hash[:state]
     @address = hash[:street]
@@ -23,8 +23,8 @@ class Attendee
     @email
   end
 
-  def zip_code
-    @zip_code
+  def zipcode
+    @zipcode
   end
 
   def city

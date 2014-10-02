@@ -30,7 +30,7 @@ class TableMaker
   end
 
   def attribute_array
-    [:last_name, :first_name, :email, :zip_code, :state, :address, :phone]
+    [:last_name, :first_name, :email, :zipcode, :state, :address, :phone]
   end
 
   def prepare_table(array)

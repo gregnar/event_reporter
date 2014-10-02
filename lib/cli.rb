@@ -31,8 +31,9 @@ class CLI
     @running
   end
 
-  def prepped_table
-    @table_maker.prepare_table(queue.current_queue)
+  def prepped_table(ordered=false, attribute="")
+    return @table_maker.prepare_table(queue.ordered_queue(attribute.to_sym)) if ordered
+    return @table_maker.prepare_table(queue.current_queue) if ordered == false
   end
 
   def call_queue(command, attribute=nil)
@@ -40,7 +41,7 @@ class CLI
     when "clear"    then queue.clear
     when "count"    then printer.show_count(queue.count)
     when "print"    then printer.print_queue(prepped_table)
-    when "print_by" then queue.print_by(attribute)
+    when "print_by" then printer.print_queue(prepped_table(true, third_command))
     when "save_to"
       queue.save_to(third_command)
       File.exists?("csv/#{third_command}.csv") ? printer.save_successful : printer.save_error
