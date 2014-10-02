@@ -2,7 +2,7 @@
 class TableMaker
 
   def determine_max_lengths(converted_attendees)
-    @max_lengths = [0, 0, 0, 0, 0, 0, 0]
+    @max_lengths = [0, 0, 0, 0, 0, 0, 0, 0]
     converted_attendees.map do |attendees|
       attendees.each_with_index do |thing, index|
         size = thing.size
@@ -30,7 +30,7 @@ class TableMaker
   end
 
   def attribute_array
-    [:last_name, :first_name, :email, :zipcode, :state, :address, :phone]
+    [:last_name, :first_name, :email, :zipcode, :city, :state, :address, :phone]
   end
 
   def prepare_table(array)
