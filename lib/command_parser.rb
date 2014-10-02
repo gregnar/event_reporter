@@ -40,8 +40,8 @@ class CommandParser
     return commands if testing
   end
 
-  def account_for_long_criteria(commands, testing=false, filter)
-     attribute = commands.index(filter)
+  def account_for_long_criteria(commands, testing=false, filter="")
+    attribute = commands.index(filter)
     if commands.length > 3
       commands[attribute+1] = commands[attribute+1..commands.length-1].inject { |sum, command| sum += " #{command}" }
       commands.pop((commands.length-1)-(attribute+1))
