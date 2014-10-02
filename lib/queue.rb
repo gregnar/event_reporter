@@ -13,7 +13,7 @@ class Queue
   end
 
   def clear
-    current_queue = []
+    @current_queue = []
   end
 
   def << (attendee_array)
@@ -26,13 +26,8 @@ class Queue
     current_queue.count
   end
 
-<<<<<<< HEAD
   def ordered_queue(attribute)
     return current_queue.sort_by { |item| item.send(attribute) }
-=======
-  def ordered(attribute)
-    ordered_queue = current_queue.sort_by { |item| item.attribute }
->>>>>>> 9a65b8cc697c29c6a0b2e230c51fd2bff749443b
   end
 
   def prep_for_save

@@ -53,7 +53,7 @@ class CLI
     case command
     when "attributes" then printer.attributes
     when "find"       then printer.find_instructions
-    when "queue"      then puts "yep"
+    when "queue"      then printer.queue_command_help(third_command)
     else                   printer.available_commands
     end
   end
@@ -66,6 +66,7 @@ class CLI
   end
 
   def find
+    queue.clear
     matches = attendee_repo.find(second_command, third_command)
     queue << matches
     printer.matches_found(matches.count)

@@ -4,7 +4,7 @@ class TableMaker
   def determine_max_lengths(converted_attendees)
     @max_lengths = [0, 0, 0, 0, 0, 0, 0]
     converted_attendees.map do |attendees|
-      array.each_with_index do |thing, index|
+      attendees.each_with_index do |thing, index|
         size = thing.size
         @max_lengths[index] = size if size > @max_lengths[index]
       end
@@ -42,6 +42,7 @@ class TableMaker
 
   def add_headers(converted_attendees)
     headers = attribute_array.map { |att| att.to_s.capitalize }
-    converted_attendees << headers; converted attendees.rotate!(-1)
+    converted_attendees << headers
+    converted_attendees.rotate!(-1)
   end
 end

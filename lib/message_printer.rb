@@ -120,18 +120,17 @@ ____________________________________________________________oooo________________
   end
 
   def queue_command_help(command)
-    options = {
-      clear: @stream.puts("Queue clear removes anything currently in the queue."),
-      count: @stream.puts("Output how many records are in the current queue."),
-      print: @stream.puts("Print out a tab-delimited data table with a header row following
-              this format: LAST_NAME  FIRST_NAME  EMAIL  zipcode  CITY  STATE
-              ADDRESS PHONE"),
-      print_by: @stream.puts("Prints the data table sorted by the specified attribute like zip code."),
-      save_to: @stream.puts("Exports the current queue to the specified filename as a CSV.
+    case command
+    when "clear"      then @stream.puts("Queue clear removes anything currently in the queue.")
+    when "count"      then @stream.puts("Shows how many records are in the current queue.")
+    when "print"      then @stream.puts("Print out a tab-delimited data table with a header row following this format:
+
+              LAST_NAME  FIRST_NAME  EMAIL  ZIPCODE  CITY  STATE  ADDRESS  PHONE\n\n")
+    when "print_by"   then @stream.puts("Prints the data table sorted by the specified attribute like zip code.")
+    when "save_to"    then @stream.puts("Exports the current queue to the specified filename as a CSV.
                 The file includes data and headers for last name, first name,
                 email, zip code, city, state, address, and phone number.")
-    }
-    options.fetch(command)
+    end
   end
 
   def attributes
@@ -148,5 +147,4 @@ ____________________________________________________________oooo________________
 
     These are the categories that the attendee data is separated by."
   end
-
 end

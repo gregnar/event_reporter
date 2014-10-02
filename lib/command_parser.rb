@@ -28,7 +28,7 @@ class CommandParser
   def modify_commands(command)
     commands = command.split
     account_for_by(commands)
-    account_for_long_criteria(commands)
+    account_for_long_criteria(commands, false, commands[1])
     return commands
   end
 
@@ -40,11 +40,11 @@ class CommandParser
     return commands if testing
   end
 
-  def account_for_long_criteria(commands, testing=false)
-    address = commands.index("address")
+  def account_for_long_criteria(commands, testing=false, filter)
+     attribute = commands.index(filter)
     if commands.length > 3
-      commands[address+1] = commands[address+1..commands.length-1].inject { |sum, command| sum += " #{command}" }
-      commands.pop((commands.length-1)-(address+1))
+      commands[attribute+1] = commands[attribute+1..commands.length-1].inject { |sum, command| sum += " #{command}" }
+      commands.pop((commands.length-1)-(attribute+1))
     end
     return commands if testing
   end
