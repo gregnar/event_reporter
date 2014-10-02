@@ -8,23 +8,23 @@ require 'table_maker'
 
 class CLI
 
-  attr_reader :csv_parser, :queue, :attendee_repo, :printer, :command_reader,
+  attr_reader :queue, :attendee_repo, :printer, :command_reader,
               :input, :first_command, :second_command, :third_command, :csv_reader
 
   def initialize(interface, input)
-    @csv_reader = CSVParser.new
-    @queue = Queue.new
-    @attendee_repo = AttendeeRepository.new
-    @printer = MessagePrinter.new(interface)
-    @command_reader = CommandParser.new
-    @table_maker = TableMaker.new
+    @csv_reader       = CSVParser.new
+    @queue            = Queue.new
+    @attendee_repo    = AttendeeRepository.new
+    @printer          = MessagePrinter.new(interface)
+    @command_reader   = CommandParser.new
+    @table_maker      = TableMaker.new
 
-    @loaded = false
-    @running = true
-    @input = input
-    @first_command  = nil
-    @second_command = nil
-    @third_command  = nil
+    @loaded           = false
+    @running          = true
+    @input            = input
+    @first_command    = nil
+    @second_command   = nil
+    @third_command    = nil
     @printer.welcome
   end
 
@@ -121,4 +121,5 @@ class CLI
       execute_first_commands(first_command)
     end
   end
+
 end
