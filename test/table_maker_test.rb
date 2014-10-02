@@ -2,7 +2,7 @@ require_relative 'test_helper'
 require 'table_maker'
 require 'csv_parser'
 require 'attendee_repository'
-#require 'cli'
+require 'pry'
 
 class TableMakerTest < Minitest::Test
 
@@ -16,8 +16,9 @@ class TableMakerTest < Minitest::Test
     data = attendee_repo.find(:first_name, "John")
 
     prepared_table = maker.prepare_table(data)
-
-    assert prepared_table.all? {|entry| entry.downcase.include?("john")}
+    assert prepared_table.all? do |entry|
+      entry.downcase.include?("john")
+    end
 
     #check table format by ensuring entry lengths are the same
     assert prepared_table[1].length == prepared_table[2].length
