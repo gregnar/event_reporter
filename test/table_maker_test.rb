@@ -8,7 +8,7 @@ class TableMakerTest < Minitest::Test
 
   def test_prepare_table
     tester = StringIO.new
-    maker = TableMaker.new(tester)
+    maker = TableMaker.new
     csv_reader = CSVParser.new
     attendee_repo = AttendeeRepository.new
     csv = csv_reader.load_csv('event_attendees.csv')
