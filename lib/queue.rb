@@ -26,6 +26,15 @@ class Queue
     current_queue.count
   end
 
+  def find(third_command)
+    attribute = third_command.split[0]
+    criteria = third_command.split[1]
+    result = current_queue.find_all do |attendee|
+      attendee.send(attribute.to_sym).to_s.downcase == criteria.downcase
+    end
+    result
+  end
+
   def ordered_queue(attribute)
     return current_queue.sort_by { |item| item.send(attribute) }
   end

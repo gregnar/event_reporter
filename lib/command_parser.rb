@@ -29,7 +29,7 @@ class CommandParser
     commands = command.split
     account_for_by(commands)
     account_for_long_criteria(commands, false, commands[1])
-    return commands
+    commands
   end
 
   def account_for_by(commands, testing=false)
@@ -37,15 +37,17 @@ class CommandParser
       commands[1] = commands[1..2].inject { |sum, command|  sum += " #{command}" }
       commands.delete_at(2)
     end
-    return commands if testing
+    commands if testing
   end
 
   def account_for_long_criteria(commands, testing=false, filter="")
-    attribute = commands.index(filter)
+    last_element = commands.length - 1
     if commands.length > 3
-      commands[attribute+1] = commands[attribute+1..commands.length-1].inject { |sum, command| sum += " #{command}" }
-      commands.pop((commands.length-1)-(attribute+1))
+      criteria = commands.index(filter) + 1
+      commands[criteria] = commands[criteria..last_element].inject { |sum, command| sum += " #{command}" }
+      commands.pop(last_element-criteria)
     end
-    return commands if testing
+    commands if testing
   end
+
 end
