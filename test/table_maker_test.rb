@@ -20,7 +20,6 @@ class TableMakerTest < Minitest::Test
       entry.downcase.include?("john")
     end
 
-    #check table format by ensuring entry lengths are the same
     assert prepared_table[1].length == prepared_table[2].length
   end
 end
